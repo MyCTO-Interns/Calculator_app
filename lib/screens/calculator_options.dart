@@ -1,3 +1,4 @@
+import 'package:calculator/routes.dart';
 import 'package:calculator/util/calculatorItem.dart';
 import 'package:calculator/util/constants.dart';
 import 'package:flutter/material.dart';
@@ -97,12 +98,14 @@ class calculator_options extends StatelessWidget {
           children: [
             SizedBox(height: 16),
             Image.asset(
-                'assets/calculator.png'), // Replace with your image asset
+                'assets/calculator.png'),
             SizedBox(height: 16),
             CalculatorItem(
               icon: Icons.calculate,
               title: "EMI Calculator",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.emiCalculator);
+              },
             ),
             CalculatorItem(
               icon: Icons.money,
