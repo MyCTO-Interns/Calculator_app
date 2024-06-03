@@ -1,4 +1,5 @@
 import 'package:calculator/routes.dart';
+import 'package:calculator/screens/calculator.dart';
 import 'package:calculator/screens/calculator_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,17 +14,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: Routes.calculatorOptions,
-      routes: Routes.define(),
+      //initialRoute: Routes.calculatorOptions,
+      //routes: Routes.define(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.white,
         useMaterial3: false,
         textTheme: TextTheme(
-          bodyText1: TextStyle(fontFamily: 'roboto'),
+          bodyLarge: TextStyle(fontFamily: 'Roboto'),
+
         ),
       ),
-      home: const calculator_options(),
+      home: const CalculatorApp(),
     );
   }
 }

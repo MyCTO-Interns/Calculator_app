@@ -145,8 +145,10 @@ class calculator_options extends StatelessWidget {
       label: 'Loan Compare',
     ),
     BottomNavigationBarItem(
+      
       icon: Icon(Icons.calculate),
       label: 'Calculator',
+      
     ),
   ],
   currentIndex: 0,
