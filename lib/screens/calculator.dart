@@ -1,14 +1,6 @@
-
 import 'package:calculator/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
-
-
-void main() {
-  runApp(MaterialApp(
-    home: CalculatorApp(),
-  ));
-}
 
 class CalculatorApp extends StatefulWidget {
   const CalculatorApp({super.key});
@@ -16,19 +8,17 @@ class CalculatorApp extends StatefulWidget {
   @override
   State<CalculatorApp> createState() => _CalculatorAppState();
 }
-//hui hi
 
 class _CalculatorAppState extends State<CalculatorApp> {
   //variables
   var input = "";
   var output = "";
   var operator = "";
-  //bool hideInput = false;
-  //bool hideOutput = true;
   double inputSize = 50; // Initial size for input text
-  Color inputColor = Colors.white; // Initial color for input text
+  Color inputColor = Colors.black; // Initial color for input text
   double outputSize = 30; // Initial size for output text
-  Color outputColor = Colors.white.withOpacity(0.7);
+  Color outputColor = Colors.black.withOpacity(0.7);
+
   onButtonClick(value) {
     if (value == "AC") {
       input = "";
@@ -47,9 +37,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
         var finalValue = expression.evaluate(EvaluationType.REAL, cm);
         output = finalValue.toString();
         inputSize = 30; // Change input text size
-        inputColor = Colors.white.withOpacity(0.7); // Change input text color
+        inputColor = Colors.black.withOpacity(0.7); // Change input text color
         outputSize = 50; // Change output text size
-        outputColor = Colors.white;
+        outputColor = Colors.black;
         if (output.endsWith('.0')) {
           output = output.substring(0, output.length - 2);
         }
@@ -57,9 +47,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
     } else {
       input = input + value;
       inputSize = 50; // Reset input text size
-      inputColor = Colors.white; // Reset input text color
+      inputColor = Colors.black; // Reset input text color
       outputSize = 30; // Reset output text size
-      outputColor = Colors.white.withOpacity(0.7);
+      outputColor = Colors.black.withOpacity(0.7);
     }
 
     setState(() {});
@@ -67,21 +57,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
 
   @override
   Widget build(BuildContext context) {
-    final buttonStyle = ElevatedButton.styleFrom(
-      padding: const EdgeInsets.all(22),
-      iconColor: buttonColor,
-    );
-
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           //input output area
           Expanded(
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.all(22),
-              //color: Colors.red,
+              padding: const EdgeInsets.all(22),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,9 +77,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       color: inputColor,
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Text(
                     output,
                     style: TextStyle(
@@ -103,9 +85,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       color: outputColor,
                     ),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  const SizedBox(height: 5),
                 ],
               ),
             ),
@@ -116,86 +96,59 @@ class _CalculatorAppState extends State<CalculatorApp> {
             children: [
               button(
                 text: "AC",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
               button(
                 text: "<-",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
               button(
                 text: "^",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
               button(
                 text: "/",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
             ],
           ),
           Row(
             children: [
+              button(text: "9",buttonBGColor: Colors.grey,),
+              button(text: "8",buttonBGColor: Colors.grey,),
+              button(text: "7",buttonBGColor: Colors.grey,),
               button(
-                text: "9",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "8",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "7",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "x",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                text: "*",
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
             ],
           ),
           Row(
             children: [
-              button(
-                text: "6",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "5",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "4",
-                tColor: buttonColor,
-              ),
+              button(text: "6",buttonBGColor: Colors.grey,),
+              button(text: "5",buttonBGColor: Colors.grey,),
+              button(text: "4",buttonBGColor: Colors.grey,),
               button(
                 text: "-",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
             ],
           ),
           Row(
             children: [
-              button(
-                text: "3",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "2",
-                tColor: buttonColor,
-              ),
-              button(
-                text: "1",
-                tColor: buttonColor,
-              ),
+              button(text: "3",buttonBGColor: Colors.grey,),
+              button(text: "2",buttonBGColor: Colors.grey,),
+              button(text: "1",buttonBGColor: Colors.grey,),
               button(
                 text: "+",
-                tColor: orangeColor,
-                buttonBGColor: operatorColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
             ],
           ),
@@ -203,26 +156,21 @@ class _CalculatorAppState extends State<CalculatorApp> {
             children: [
               button(
                 text: ".",
-                tColor: buttonColor,
-                buttonBGColor: Colors.white,
+                buttonBGColor: Colors.grey,
               ),
               button(
                 text: "0",
-                tColor: buttonColor,
-                buttonBGColor: Colors.white,
+                buttonBGColor: Colors.grey,
               ),
               button(
                 text: "%",
-                tColor: orangeColor,
-                //buttonBGColor: operatorColor,
-                buttonBGColor: Colors.white,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
               button(
                 text: "=",
-                tColor: orangeColor,
-                buttonBGColor: Colors.white,
-                //tColor: Colors.white,
-                //buttonBGColor: orangeColor,
+                tColor: Colors.white,
+                buttonBGColor: orangeColor,
               ),
             ],
           ),
@@ -231,16 +179,17 @@ class _CalculatorAppState extends State<CalculatorApp> {
     );
   }
 
-  Widget button({text, tColor = Colors.white, buttonBGColor = buttonColor}) {
+  Widget button({required String text, Color tColor = Colors.black, Color buttonBGColor = Colors.white}) {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(8),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+            backgroundColor: buttonBGColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
             padding: const EdgeInsets.all(22),
-            iconColor: buttonBGColor,
           ),
           onPressed: () => onButtonClick(text),
           child: Text(
