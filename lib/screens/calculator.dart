@@ -43,6 +43,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
         if (output.endsWith('.0')) {
           output = output.substring(0, output.length - 2);
         }
+        input = output;
       }
     } else {
       input = input + value;
@@ -122,7 +123,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
               button(text: "8",buttonBGColor: Colors.grey,),
               button(text: "7",buttonBGColor: Colors.grey,),
               button(
-                text: "*",
+                text: "x",
                 tColor: Colors.white,
                 buttonBGColor: orangeColor,
               ),
