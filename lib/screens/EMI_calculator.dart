@@ -1,9 +1,15 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:calculator/methods/logic.dart';
 import 'package:calculator/methods/methods.dart';
 import 'package:calculator/screens/HomePage.dart';
 import 'package:calculator/util/circular_progress.dart';
-import 'package:calculator/util/constants.dart'; // Ensure this file contains the textFieldWidth and textFieldHeight constants
+import 'package:calculator/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class EmiCalculator extends StatefulWidget {
   const EmiCalculator({super.key});
@@ -19,13 +25,18 @@ class _EmiCalculatorState extends State<EmiCalculator> {
   late TextEditingController _LoanController;
   late TextEditingController _RoiController;
   late TextEditingController _TenureController;
+  double emi = 0.0;
+  double totalInterest = 0.0;
+  double totalAmount = 0.0;
+  double value = 0.0;
 
   @override
   void initState() {
     super.initState();
-    _LoanController = TextEditingController(text: LoanAmount.toString());
+    _LoanController =
+        TextEditingController(text: LoanAmount.toStringAsFixed(0));
     _RoiController = TextEditingController(text: ROI.toString());
-    _TenureController = TextEditingController(text: Tenure.toString());
+    _TenureController = TextEditingController(text: Tenure.toStringAsFixed(0));
   }
 
   @override
@@ -34,6 +45,14 @@ class _EmiCalculatorState extends State<EmiCalculator> {
     _RoiController.dispose();
     _TenureController.dispose();
     super.dispose();
+  }
+
+  void updateValues() {
+    emi = calculateEMI(LoanAmount, ROI, Tenure);
+    totalInterest = calculateTotalInterest(LoanAmount, emi, Tenure);
+    totalAmount = totalInterest + LoanAmount;
+    value = (totalInterest)/(totalAmount);
+    value = value.clamp(0.0, 1.0);
   }
 
   @override
@@ -127,6 +146,18 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                         (newValue) {
                                       setState(() {
                                         LoanAmount = newValue;
+                                        if (newValue == 0) {
+                                          _LoanController.clear();
+                                        } else {
+                                          _LoanController.text =
+                                              NumberFormat('#,##,###')
+                                                  .format(newValue.toInt());
+                                          _LoanController.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: _LoanController
+                                                          .text.length));
+                                        }
                                       });
                                     });
                                   },
@@ -157,6 +188,7 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                         },
                         min: 0,
                         max: 100000000,
+                        divisions: 100000000,
                         activeColor: mainColor,
                         inactiveColor: Colors.grey[300],
                       ),
@@ -183,7 +215,9 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                     updateValueFromText(value, 0, 30,
                                         (newValue) {
                                       setState(() {
-                                        ROI = newValue;
+                                        ROI = double.parse(
+                                            newValue.toStringAsFixed(
+                                                1)); // Round to 1 decimal place
                                       });
                                     });
                                   },
@@ -193,7 +227,8 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                     hintText: 'Enter rate',
                                     border: OutlineInputBorder(),
                                   ),
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      decimal: true),
                                 ),
                               ),
                             ),
@@ -207,12 +242,13 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                         value: ROI,
                         onChanged: (newValue) {
                           setState(() {
-                            ROI = newValue;
-                            updateValue(newValue, _RoiController);
+                            ROI = double.parse(newValue.toStringAsFixed(1));
+                            _RoiController.text = ROI.toStringAsFixed(1);
                           });
                         },
                         min: 0,
                         max: 30,
+                        divisions: 300,
                         activeColor: mainColor,
                         inactiveColor: Colors.grey[300],
                       ),
@@ -258,21 +294,26 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Slider(
-                        value: Tenure,
-                        onChanged: (newValue) {
-                          setState(() {
-                            Tenure = newValue;
-                            updateValue(newValue, _TenureController);
-                          });
-                        },
-                        min: 0,
-                        max: 30,
-                        activeColor: mainColor,
-                        inactiveColor: Colors.grey[300],
-                      ),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            tickMarkShape: SliderTickMarkShape.noTickMark,
+                          ),
+                          child: Slider(
+                            value: Tenure,
+                            onChanged: (newValue) {
+                              setState(() {
+                                Tenure = newValue;
+                                updateValue(newValue, _TenureController);
+                              });
+                            },
+                            min: 0,
+                            max: 30,
+                            divisions: 30,
+                            activeColor: mainColor,
+                            inactiveColor: Colors.grey[300],
+                          ),
+                        )),
                     SizedBox(
                       height: 40.h,
                     ),
@@ -282,8 +323,13 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomCircularProgressIndicator(
-                              progressValue: 0.7, mainColor: mainColor),
+                          Builder(
+                            builder: (context) {
+                              updateValues();
+                              return CustomCircularProgressIndicator(
+                                  progressValue: value, mainColor: mainColor);
+                            }
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -367,14 +413,28 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                 'Monthly EMI',
                                 style: TextStyle(fontSize: 20),
                               ),
-                              
-                              Text(
-                                '10,000',
-                                style: TextStyle(fontSize: 18),
-                              )
+                              Builder(
+                                builder: (context) {
+                                  updateValues(); 
+                                  String emiText;
+                                  if (emi.isFinite) {
+                                    emiText =
+                                        '₹${NumberFormat('#,##,###').format(emi.ceil())}';
+                                  } else {
+                                    emiText =
+                                        'Infinity'; 
+                                  }
+                                  return Text(
+                                    emiText,
+                                    style: TextStyle(fontSize: 18),
+                                  );
+                                },
+                              ),
                             ],
                           ),
-                          SizedBox(height: 15.h,),
+                          SizedBox(
+                            height: 15.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -383,12 +443,14 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                 style: TextStyle(fontSize: 20),
                               ),
                               Text(
-                                '10,000',
+                                '₹${_LoanController.text}',
                                 style: TextStyle(fontSize: 18),
                               )
                             ],
                           ),
-                          SizedBox(height: 15.h,),
+                          SizedBox(
+                            height: 15.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -396,13 +458,20 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                 'Total interest',
                                 style: TextStyle(fontSize: 20),
                               ),
-                              Text(
-                                '10,000',
-                                style: TextStyle(fontSize: 18),
-                              )
+                              Builder(
+                                builder: (context) {
+                                  updateValues();
+                                  return Text(
+                                    '₹${NumberFormat('#,##,###').format(totalInterest)}',
+                                    style: TextStyle(fontSize: 18),
+                                  );
+                                },
+                              ),
                             ],
                           ),
-                          SizedBox(height: 15.h,),
+                          SizedBox(
+                            height: 15.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -410,10 +479,15 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                 'Total amount',
                                 style: TextStyle(fontSize: 20),
                               ),
-                              Text(
-                                '10,000',
-                                style: TextStyle(fontSize: 18),
-                              )
+                              Builder(
+                                builder: (context) {
+                                  updateValues(); 
+                                  return Text(
+                                    '₹${NumberFormat('#,##,###').format(totalAmount)}',
+                                    style: TextStyle(fontSize: 18),
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         ],
