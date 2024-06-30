@@ -21,7 +21,7 @@ class CalculatorItem extends StatelessWidget {
     child: Container(
       padding: EdgeInsets.all(8.0), 
       child: Container(
-        color: mainColor.withOpacity(0.1), // Green color
+        color: mainColor.withOpacity(0.1),
         child: ListTile(
           leading: Icon(icon),
           title: Text(title),
