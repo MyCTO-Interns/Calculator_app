@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     final List<Widget> pages = [
       CalculatorOptions(),
       EmiCalculator(),
-      LoanCalculator(),
+      LoanCompare(),
     ];
 
     return Scaffold(
