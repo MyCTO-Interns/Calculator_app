@@ -1,6 +1,8 @@
 import 'package:calculator/routes.dart';
 import 'package:calculator/screens/EMI_calculator.dart';
+import 'package:calculator/screens/FD_calculator.dart';
 import 'package:calculator/screens/Loan_Cal.dart';
+import 'package:calculator/screens/RD_calculator.dart';
 import 'package:calculator/screens/SIP_calculator.dart';
 import 'package:calculator/util/calculatorItem.dart';
 import 'package:calculator/util/constants.dart';
@@ -120,7 +122,13 @@ class CalculatorOptions extends StatelessWidget {
             CalculatorItem(
               icon: Icons.account_balance_wallet,
               title: "FD Calculator",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const FD_Calculator()),
+                  (route) => false,
+                );
+              },
             ),
             CalculatorItem(
               icon: Icons.trending_up,
@@ -136,7 +144,13 @@ class CalculatorOptions extends StatelessWidget {
             CalculatorItem(
               icon: Icons.savings,
               title: "RD Calculator",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const RD_Calculator()),
+                  (route) => false,
+                );
+              },
             ),
           ],
         )));
