@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
       CalculatorOptions(),
       EmiCalculator(),
       LoanCompare(),
+      
     ];
 
     return Scaffold(
