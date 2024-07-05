@@ -170,6 +170,8 @@ class CalculatorOptions extends StatelessWidget {
               },
             ),
           ],
+
         )));
+
   }
 }

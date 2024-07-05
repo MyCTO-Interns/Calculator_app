@@ -1,5 +1,9 @@
 import 'package:calculator/routes.dart';
+
+import 'package:calculator/screens/calculator.dart';
+
 import 'package:calculator/screens/HomePage.dart';
+
 import 'package:calculator/screens/calculator_options.dart';
 import 'package:calculator/screens/splash.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       child: MaterialApp(
         initialRoute:Routes.splash,
@@ -29,6 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Splash(),
       ),
+
     );
   }
 }
