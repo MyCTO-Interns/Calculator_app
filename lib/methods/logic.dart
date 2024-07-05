@@ -67,24 +67,19 @@ double calculateTotalInvestedInRD(
   return periodicDeposit * totalPeriods;
 }
 
-
-
-
 double calculateCompoundInterest(double P, double R, double t, double N) {
-  double A = P * pow((1 + ((R/100) / N)), (N * (t/12)));
+  double A = P * pow((1 + ((R / 100) / N)), (N * (t / 12)));
   return A;
 }
 
-double calculateFinalMaturity(double A  , double R , double t , double N)
-{
+double calculateFinalMaturity(double A, double R, double t, double N) {
   double sum = 0.0;
-  
-  for(double i=1 ; i<=t*12;i++)
-  {
+
+  for (double i = 1; i <= t * 12; i++) {
     sum += calculateCompoundInterest(A, R, i, 4);
     print(A);
     print(sum);
   }
-  
+
   return sum;
 }

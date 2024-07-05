@@ -62,6 +62,12 @@ class CalculatorOptions extends StatelessWidget {
                       ),
                       title: Text('Share this app'),
                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -71,7 +77,13 @@ class CalculatorOptions extends StatelessWidget {
                         color: mainColor,
                       ),
                       title: Text('Rate this app'),
-                      onTap: () {
+                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -81,7 +93,13 @@ class CalculatorOptions extends StatelessWidget {
                         color: mainColor,
                       ),
                       title: Text('Privacy Policy'),
-                      onTap: () {
+                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -111,10 +129,9 @@ class CalculatorOptions extends StatelessWidget {
             CalculatorItem(
               icon: Icons.money,
               title: "Loan Calculator",
-             onTap: () {
+              onTap: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const LoanCompare()),
+                  MaterialPageRoute(builder: (context) => const LoanCompare()),
                   (route) => false,
                 );
               },
@@ -133,7 +150,7 @@ class CalculatorOptions extends StatelessWidget {
             CalculatorItem(
               icon: Icons.trending_up,
               title: "SIP Calculator",
-             onTap: () {
+              onTap: () {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => const SIP_Calculator()),
