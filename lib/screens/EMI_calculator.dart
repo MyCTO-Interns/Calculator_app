@@ -51,7 +51,7 @@ class _EmiCalculatorState extends State<EmiCalculator> {
     emi = calculateEMI(LoanAmount, ROI, Tenure);
     totalInterest = calculateTotalInterest(LoanAmount, emi, Tenure);
     totalAmount = totalInterest + LoanAmount;
-    value = (totalInterest)/(totalAmount);
+    value = (totalInterest) / (totalAmount);
     value = value.clamp(0.0, 1.0);
   }
 
@@ -319,19 +319,20 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.only(
+                        left: 12,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Builder(
-                            builder: (context) {
-                              updateValues();
-                              return CustomCircularProgressIndicator(
-                                  progressValue: value, mainColor: mainColor);
-                            }
-                          ),
+                          Builder(builder: (context) {
+                            updateValues();
+                            return CustomCircularProgressIndicator(
+                                progressValue: value, mainColor: mainColor);
+                          }),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
                                 children: [
@@ -343,12 +344,10 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                                       borderRadius: BorderRadius.circular(5),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.grey.withOpacity(
-                                              0.2), // color of the shadow
-                                          spreadRadius: 1, // spread radius
-                                          blurRadius: 3, // blur radius
-                                          offset: Offset(0,
-                                              2), // changes position of shadow
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: Offset(0, 2),
                                         ),
                                       ],
                                     ),
@@ -415,14 +414,13 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                               ),
                               Builder(
                                 builder: (context) {
-                                  updateValues(); 
+                                  updateValues();
                                   String emiText;
                                   if (emi.isFinite) {
                                     emiText =
                                         '₹${NumberFormat('#,##,###').format(emi)}';
                                   } else {
-                                    emiText =
-                                        'Infinity'; 
+                                    emiText = 'Infinity';
                                   }
                                   return Text(
                                     emiText,
@@ -481,7 +479,7 @@ class _EmiCalculatorState extends State<EmiCalculator> {
                               ),
                               Builder(
                                 builder: (context) {
-                                  updateValues(); 
+                                  updateValues();
                                   return Text(
                                     '₹${NumberFormat('#,##,###').format(totalAmount)}',
                                     style: TextStyle(fontSize: 18),

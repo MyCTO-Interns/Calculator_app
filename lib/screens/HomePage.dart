@@ -1,6 +1,7 @@
 import 'package:calculator/main.dart';
 import 'package:calculator/routes.dart';
 import 'package:calculator/screens/EMI_calculator.dart';
+import 'package:calculator/screens/calculator.dart';
 import 'package:calculator/screens/calculator_options.dart';
 import 'package:calculator/screens/Loan_Cal.dart';
 import 'package:calculator/util/calculatorItem.dart';
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
       CalculatorOptions(),
       EmiCalculator(),
       LoanCompare(),
+      CalculatorApp(),
       
     ];
 

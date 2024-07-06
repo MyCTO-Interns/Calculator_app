@@ -73,7 +73,8 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                           Text(
                             '₹${widget.emiCompare1}',
                             style: TextStyle(
-                              color: mainColor,
+                              color:
+                                  widget.colorIndicator ? mainColor : redColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
@@ -89,7 +90,8 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                           Text(
                             '₹${widget.emiCompare2}',
                             style: TextStyle(
-                              color: Color(0xFFFF0000),
+                              color:
+                                  widget.colorIndicator ? redColor : mainColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
@@ -125,9 +127,10 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                           '₹${widget.totalInterestCompare1}',
+                            '₹${widget.totalInterestCompare1}',
                             style: TextStyle(
-                              color: mainColor,
+                              color:
+                                  widget.colorIndicator ? mainColor : redColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
@@ -141,9 +144,10 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                             ),
                           ),
                           Text(
-                           '₹${widget.totalInterestCompare2}',
+                            '₹${widget.totalInterestCompare2}',
                             style: TextStyle(
-                              color: Color(0xFFFF0000),
+                              color:
+                                  widget.colorIndicator ? redColor : mainColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
@@ -181,7 +185,8 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                           Text(
                             widget.loanTenureCompare1,
                             style: TextStyle(
-                              color: mainColor,
+                              color:
+                                  widget.colorIndicator ? mainColor : redColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
@@ -197,7 +202,8 @@ class _LoanCompareResultState extends State<LoanCompareResult> {
                           Text(
                             widget.loanTenureCompare2,
                             style: TextStyle(
-                              color: Color(0xFFFF0000),
+                              color:
+                                  widget.colorIndicator ? redColor : mainColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
