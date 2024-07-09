@@ -1,3 +1,4 @@
+import 'package:calculator/screens/HomePage.dart';
 import 'package:calculator/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -58,124 +59,133 @@ class _CalculatorAppState extends State<CalculatorApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          //input output area
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(22),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    input,
-                    style: TextStyle(
-                      fontSize: inputSize,
-                      color: inputColor,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        ); // Replace the current screen with HomePage
+        return false; // Prevent default back button behavior
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            //input output area
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(22),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      input,
+                      style: TextStyle(
+                        fontSize: inputSize,
+                        color: inputColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    output,
-                    style: TextStyle(
-                      fontSize: outputSize,
-                      color: outputColor,
+                    const SizedBox(height: 10),
+                    Text(
+                      output,
+                      style: TextStyle(
+                        fontSize: outputSize,
+                        color: outputColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
             ),
-          ),
-
-          // Button area
-          Row(
-            children: [
-              button(
-                text: "AC",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-              button(
-                text: "<-",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-              button(
-                text: "^",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-              button(
-                text: "/",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              button(text: "9",buttonBGColor: Colors.grey,),
-              button(text: "8",buttonBGColor: Colors.grey,),
-              button(text: "7",buttonBGColor: Colors.grey,),
-              button(
-                text: "x",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              button(text: "6",buttonBGColor: Colors.grey,),
-              button(text: "5",buttonBGColor: Colors.grey,),
-              button(text: "4",buttonBGColor: Colors.grey,),
-              button(
-                text: "-",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              button(text: "3",buttonBGColor: Colors.grey,),
-              button(text: "2",buttonBGColor: Colors.grey,),
-              button(text: "1",buttonBGColor: Colors.grey,),
-              button(
-                text: "+",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              button(
-                text: ".",
-                buttonBGColor: Colors.grey,
-              ),
-              button(
-                text: "0",
-                buttonBGColor: Colors.grey,
-              ),
-              button(
-                text: "%",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-              button(
-                text: "=",
-                tColor: Colors.white,
-                buttonBGColor: orangeColor,
-              ),
-            ],
-          ),
-        ],
+      
+            // Button area
+            Row(
+              children: [
+                button(
+                  text: "AC",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+                button(
+                  text: "<-",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+                button(
+                  text: "^",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+                button(
+                  text: "/",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                button(text: "9",buttonBGColor: Colors.grey,),
+                button(text: "8",buttonBGColor: Colors.grey,),
+                button(text: "7",buttonBGColor: Colors.grey,),
+                button(
+                  text: "x",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                button(text: "6",buttonBGColor: Colors.grey,),
+                button(text: "5",buttonBGColor: Colors.grey,),
+                button(text: "4",buttonBGColor: Colors.grey,),
+                button(
+                  text: "-",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                button(text: "3",buttonBGColor: Colors.grey,),
+                button(text: "2",buttonBGColor: Colors.grey,),
+                button(text: "1",buttonBGColor: Colors.grey,),
+                button(
+                  text: "+",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                button(
+                  text: ".",
+                  buttonBGColor: Colors.grey,
+                ),
+                button(
+                  text: "0",
+                  buttonBGColor: Colors.grey,
+                ),
+                button(
+                  text: "%",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+                button(
+                  text: "=",
+                  tColor: Colors.white,
+                  buttonBGColor: orangeColor,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

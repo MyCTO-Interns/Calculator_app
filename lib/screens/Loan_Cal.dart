@@ -77,430 +77,440 @@ class _LoanCompareState extends State<LoanCompare> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Loan",
-              style: TextStyle(
-                color: mainColor,
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                height: 1.5,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        ); // Replace the current screen with HomePage
+        return false; // Prevent default back button behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Loan",
+                style: TextStyle(
+                  color: mainColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                ),
               ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "Compare",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                height: 1.5,
+              SizedBox(width: 8),
+              Text(
+                "Compare",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          elevation: 4.0,
+          shadowColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+          iconTheme: IconThemeData(color: Colors.black),
+          titleSpacing: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false,
+              );
+            },
+          ),
         ),
-        elevation: 4.0,
-        shadowColor: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
-        iconTheme: IconThemeData(color: Colors.black),
-        titleSpacing: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomePage()),
-              (route) => false,
-            );
-          },
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Container(
-                    width: 372.w,
-                    height: 390.h,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Color(0xFFD9D9D9)),
-                      ),
-                      shadows: [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 4,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                color: secondaryColor,
-                                width: 140.w,
-                                height: 35.h,
-                                child: Center(
-                                  child: Text(
-                                    'Compare 1',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Container(
-                                color: secondaryColor,
-                                width: 140.w,
-                                height: 35.h,
-                                child: Center(
-                                  child: Text(
-                                    'Compare 2',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            'Principle Amount*',
-                            style: TextStyle(
-                              color: Color(0xFF00BB61),
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.09,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: loan1Controller,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a value';
-                                      }
-                                      if (!RegExp(r'^[0-9]+$')
-                                          .hasMatch(value)) {
-                                        return 'Only numbers are allowed';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: TextFormField(
-                                  controller: loan2Controller,
-                                  keyboardType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a value';
-                                    }
-                                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                      return 'Only numbers are allowed';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 25),
-                          Text(
-                            'Interest*',
-                            style: TextStyle(
-                              color: Color(0xFF00BB61),
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.09,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: interest1Controller,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a value';
-                                      }
-                                      if (!RegExp(r'^[0-9]+$')
-                                          .hasMatch(value)) {
-                                        return 'Only numbers are allowed';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: TextFormField(
-                                  controller: interest2Controller,
-                                  keyboardType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a value';
-                                    }
-                                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                      return 'Only numbers are allowed';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 25),
-                          Text(
-                            'Loan Tenure*',
-                            style: TextStyle(
-                              color: Color(0xFF00BB61),
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              height: 0.09,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: tenure1Controller,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a value';
-                                      }
-                                      if (!RegExp(r'^[0-9]+$')
-                                          .hasMatch(value)) {
-                                        return 'Only numbers are allowed';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Container(
-                                width: 140.w,
-                                height: 35.h,
-                                child: TextFormField(
-                                  controller: tenure2Controller,
-                                  keyboardType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a value';
-                                    }
-                                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                      return 'Only numbers are allowed';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x3F000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                      spreadRadius: 0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30),
-                          InkWell(
-                            onTap: onComparePressed,
-                            child: Container(
-                              width: 140.w,
-                              height: 40.h,
-                              decoration: ShapeDecoration(
-                                color: mainColor,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    width: 1,
-                                    color: Color(0xFFD9D9D9),
-                                  ),
-                                ),
-                                shadows: [
-                                  BoxShadow(
-                                    color: Color(0x3F000000),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                    spreadRadius: 0,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Compare',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      width: 372.w,
+                      height: 390.h,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(width: 1, color: Color(0xFFD9D9D9)),
+                        ),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x3F000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
+                          )
                         ],
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  color: secondaryColor,
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: Center(
+                                    child: Text(
+                                      'Compare 1',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                Container(
+                                  color: secondaryColor,
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: Center(
+                                    child: Text(
+                                      'Compare 2',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              'Principle Amount*',
+                              style: TextStyle(
+                                color: Color(0xFF00BB61),
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                height: 0.09,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: loan1Controller,
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a value';
+                                        }
+                                        if (!RegExp(r'^[0-9]+$')
+                                            .hasMatch(value)) {
+                                          return 'Only numbers are allowed';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: TextFormField(
+                                    controller: loan2Controller,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter a value';
+                                      }
+                                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                                        return 'Only numbers are allowed';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 25),
+                            Text(
+                              'Interest*',
+                              style: TextStyle(
+                                color: Color(0xFF00BB61),
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                height: 0.09,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: interest1Controller,
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a value';
+                                        }
+                                        if (!RegExp(r'^\d+(\.\d+)?$')
+                                            .hasMatch(value)) {
+                                          return 'Only numbers are allowed';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: TextFormField(
+                                    controller: interest2Controller,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter a value';
+                                      }
+                                      if (!RegExp(r'^\d+(\.\d+)?$')
+                                          .hasMatch(value)) {
+                                        return 'Only numbers are allowed';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 25),
+                            Text(
+                              'Loan Tenure*',
+                              style: TextStyle(
+                                color: Color(0xFF00BB61),
+                                fontSize: 16,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                height: 0.09,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: tenure1Controller,
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a value';
+                                        }
+                                        if (!RegExp(r'^[0-9]+$')
+                                            .hasMatch(value)) {
+                                          return 'Only numbers are allowed';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: 6),
+                                Container(
+                                  width: 140.w,
+                                  height: 35.h,
+                                  child: TextFormField(
+                                    controller: tenure2Controller,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter a value';
+                                      }
+                                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                                        return 'Only numbers are allowed';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Color(0x3F000000),
+                                        blurRadius: 4,
+                                        offset: Offset(0, 1),
+                                        spreadRadius: 0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 30),
+                            InkWell(
+                              onTap: onComparePressed,
+                              child: Container(
+                                width: 140.w,
+                                height: 40.h,
+                                decoration: ShapeDecoration(
+                                  color: mainColor,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      width: 1,
+                                      color: Color(0xFFD9D9D9),
+                                    ),
+                                  ),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x3F000000),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                      spreadRadius: 0,
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Compare',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 15),
-                  if (showComparison)
-                    LoanCompareResult(
-                      emiCompare1: NumberFormat('#,##,###').format(emi1),
-                      emiCompare2: NumberFormat('#,##,###').format(emi2),
-                      totalInterestCompare1:
-                          NumberFormat('#,##,###').format(totalInterest1),
-                      totalInterestCompare2:
-                          NumberFormat('#,##,###').format(totalInterest2),
-                      loanTenureCompare1: tenure1Controller.text,
-                      loanTenureCompare2: tenure2Controller.text,
-                      colorIndicator: colorIndicator,
-                    ),
-                ],
+                    SizedBox(height: 15),
+                    if (showComparison)
+                      LoanCompareResult(
+                        emiCompare1: NumberFormat('#,##,###').format(emi1),
+                        emiCompare2: NumberFormat('#,##,###').format(emi2),
+                        totalInterestCompare1:
+                            NumberFormat('#,##,###').format(totalInterest1),
+                        totalInterestCompare2:
+                            NumberFormat('#,##,###').format(totalInterest2),
+                        loanTenureCompare1: tenure1Controller.text,
+                        loanTenureCompare2: tenure2Controller.text,
+                        colorIndicator: colorIndicator,
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
