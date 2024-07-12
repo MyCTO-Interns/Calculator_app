@@ -21,13 +21,13 @@ class SIP_Calculator extends StatefulWidget {
 class _SIP_Calculator extends State<SIP_Calculator> {
   double MonthlyInvested = 0.0;
   double ReturnRate = 0.0;
-  double TimePeriod= 0.0;
+  double TimePeriod = 0.0;
   late TextEditingController _LoanController;
   late TextEditingController _RoiController;
   late TextEditingController _TenureController;
   double InvestedAmount = 0.0;
   double EstReturn = 0.0;
-  double TotalValue= 0.0;
+  double TotalValue = 0.0;
   double value = 0.0;
 
   @override
@@ -36,7 +36,8 @@ class _SIP_Calculator extends State<SIP_Calculator> {
     _LoanController =
         TextEditingController(text: MonthlyInvested.toStringAsFixed(0));
     _RoiController = TextEditingController(text: ReturnRate.toString());
-    _TenureController = TextEditingController(text: TimePeriod.toStringAsFixed(0));
+    _TenureController =
+        TextEditingController(text: TimePeriod.toStringAsFixed(0));
   }
 
   @override
@@ -51,7 +52,7 @@ class _SIP_Calculator extends State<SIP_Calculator> {
     InvestedAmount = calculateTotalInvestedAmount(MonthlyInvested, TimePeriod);
     TotalValue = calculateSIPReturns(MonthlyInvested, ReturnRate, TimePeriod);
     EstReturn = calculateEstReturns(InvestedAmount, TotalValue);
-    value = EstReturn/TotalValue;
+    value = EstReturn / TotalValue;
     value = value.clamp(0.0, 1.0);
   }
 
@@ -187,7 +188,7 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Slider(
-                          value:MonthlyInvested,
+                          value: MonthlyInvested,
                           onChanged: (newValue) {
                             setState(() {
                               MonthlyInvested = newValue;
@@ -223,7 +224,7 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                                       updateValueFromText(value, 0, 30,
                                           (newValue) {
                                         setState(() {
-                                         ReturnRate = double.parse(
+                                          ReturnRate = double.parse(
                                               newValue.toStringAsFixed(
                                                   1)); // Round to 1 decimal place
                                         });
@@ -235,8 +236,9 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                                       hintText: 'Enter rate',
                                       border: OutlineInputBorder(),
                                     ),
-                                    keyboardType: TextInputType.numberWithOptions(
-                                        decimal: true),
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                            decimal: true),
                                   ),
                                 ),
                               ),
@@ -250,8 +252,10 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                           value: ReturnRate,
                           onChanged: (newValue) {
                             setState(() {
-                              ReturnRate = double.parse(newValue.toStringAsFixed(1));
-                              _RoiController.text = ReturnRate.toStringAsFixed(1);
+                              ReturnRate =
+                                  double.parse(newValue.toStringAsFixed(1));
+                              _RoiController.text =
+                                  ReturnRate.toStringAsFixed(1);
                             });
                           },
                           min: 0,
@@ -325,83 +329,78 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                       SizedBox(
                         height: 40.h,
                       ),
-      
+
                       Padding(
                         padding: EdgeInsets.all(12),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Builder(
-                              builder: (context) {
-                                updateValues();
-                                return CustomCircularProgressIndicator(
-                                    progressValue: value, mainColor: mainColor);
-                              }
+                            Builder(builder: (context) {
+                              updateValues();
+                              return CustomCircularProgressIndicator(
+                                  progressValue: value, mainColor: mainColor);
+                            }),
+                            SizedBox(
+                              width: 25.w,
                             ),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 45,
-                                      height: 10,
-                                      decoration: BoxDecoration(
-                                        color: secondaryColor,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(
-                                                0.2), // color of the shadow
-                                            spreadRadius: 1, // spread radius
-                                            blurRadius: 3, // blur radius
-                                            offset: Offset(0,
-                                                2), // changes position of shadow
-                                          ),
-                                        ],
+                                Container(
+                                  width: 45,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(
+                                            0.2), // color of the shadow
+                                        spreadRadius: 1, // spread radius
+                                        blurRadius: 0, // blur radius
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      'Invested amount',
-                                      style: TextStyle(fontSize: 12),
-                                    )
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 45,
-                                      height: 10,
-                                      decoration: BoxDecoration(
-                                        color: mainColor,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(
-                                                0.3), // color of the shadow
-                                            spreadRadius: 1, // spread radius
-                                            blurRadius: 3, // blur radius
-                                            offset: Offset(0,
-                                                2), // changes position of shadow
-                                          ),
-                                        ],
+                                Container(
+                                  width: 45,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: mainColor, // color of the shadow
+                                        spreadRadius: 1, // spread radius
+                                        blurRadius: 0, // blur radius
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      'Est. amount',
-                                      style: TextStyle(fontSize: 12),
-                                    )
-                                  ],
-                                )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 5),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Principle amount',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Interest amount',
+                                  style: TextStyle(fontSize: 12),
+                                ),
                               ],
                             )
                           ],
@@ -423,8 +422,8 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                                 ),
                                 Builder(
                                   builder: (context) {
-                                    updateValues(); 
-                                    
+                                    updateValues();
+
                                     return Text(
                                       '₹${NumberFormat('#,##,###').format(InvestedAmount.toInt())}',
                                       style: TextStyle(fontSize: 18),
@@ -443,15 +442,13 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                                   'Est. returns',
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                Builder(
-                                  builder: (context) {
-                                    updateValues();
-                                    return Text(
-                                      '₹${NumberFormat('#,##,###').format(EstReturn)}',
-                                      style: TextStyle(fontSize: 18),
-                                    );
-                                  }
-                                )
+                                Builder(builder: (context) {
+                                  updateValues();
+                                  return Text(
+                                    '₹${NumberFormat('#,##,###').format(EstReturn)}',
+                                    style: TextStyle(fontSize: 18),
+                                  );
+                                })
                               ],
                             ),
                             SizedBox(
@@ -475,7 +472,6 @@ class _SIP_Calculator extends State<SIP_Calculator> {
                                 ),
                               ],
                             ),
-                            
                           ],
                         ),
                       )

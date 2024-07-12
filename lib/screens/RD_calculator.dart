@@ -329,79 +329,72 @@ class RD_calculatorState extends State<RD_Calculator> {
                       Padding(
                         padding: EdgeInsets.all(12),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Builder(
-                              builder: (context) {
-                                updateValues();
-                                return CustomCircularProgressIndicator(
-                                    progressValue: value, mainColor: mainColor);
-                              }
-                            ),
+                            Builder(builder: (context) {
+                              updateValues();
+                              return CustomCircularProgressIndicator(
+                                  progressValue: value, mainColor: mainColor);
+                            }),
+                            SizedBox(width: 25.w,),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 45,
-                                      height: 10,
-                                      decoration: BoxDecoration(
-                                        color: secondaryColor,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(
-                                                0.2), // color of the shadow
-                                            spreadRadius: 1, // spread radius
-                                            blurRadius: 3, // blur radius
-                                            offset: Offset(0,
-                                                2), // changes position of shadow
-                                          ),
-                                        ],
+                                Container(
+                                  width: 45,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(
+                                            0.2), // color of the shadow
+                                        spreadRadius: 1, // spread radius
+                                        blurRadius: 0, // blur radius
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      'Invested amount',
-                                      style: TextStyle(fontSize: 12),
-                                    )
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 45,
-                                      height: 10,
-                                      decoration: BoxDecoration(
-                                        color: mainColor,
-                                        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(
-                                                0.3), // color of the shadow
-                                            spreadRadius: 1, // spread radius
-                                            blurRadius: 3, // blur radius
-                                            offset: Offset(0,
-                                                2), // changes position of shadow
-                                          ),
-                                        ],
+                                Container(
+                                  width: 45,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: mainColor, // color of the shadow
+                                        spreadRadius: 1, // spread radius
+                                        blurRadius: 0, // blur radius
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      'Est. amount',
-                                      style: TextStyle(fontSize: 12),
-                                    )
-                                  ],
-                                )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 5),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Invested amount',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'Total interest',
+                                  style: TextStyle(fontSize: 12),
+                                ),
                               ],
                             )
                           ],
