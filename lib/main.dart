@@ -1,6 +1,11 @@
 import 'package:calculator/routes.dart';
+
+import 'package:calculator/screens/calculator.dart';
+
 import 'package:calculator/screens/HomePage.dart';
+
 import 'package:calculator/screens/calculator_options.dart';
+import 'package:calculator/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,9 +19,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       child: MaterialApp(
-        initialRoute: Routes.calculatorOptions,
+        initialRoute:Routes.splash,
         routes: Routes.define(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -26,8 +32,9 @@ class MyApp extends StatelessWidget {
             bodyLarge: TextStyle(fontFamily: 'roboto'),
           ),
         ),
-        home: const HomePage(),
+        home: Splash(),
       ),
+
     );
   }
 }

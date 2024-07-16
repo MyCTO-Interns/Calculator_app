@@ -1,4 +1,4 @@
-import 'package:calculator/util/constants.dart';
+import '../util/constants.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorItem extends StatelessWidget {

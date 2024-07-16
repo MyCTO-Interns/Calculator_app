@@ -1,12 +1,13 @@
-import 'package:calculator/main.dart';
-import 'package:calculator/routes.dart';
-import 'package:calculator/screens/EMI_calculator.dart';
-import 'package:calculator/screens/calculator_options.dart';
-import 'package:calculator/screens/Loan_Cal.dart';
-import 'package:calculator/util/calculatorItem.dart';
-import 'package:calculator/util/constants.dart';
+
+import '../util/constants.dart';
+import 'EMI_calculator.dart';
+import 'calculator.dart';
+import 'calculator_options.dart';
+import 'Loan_Cal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'calculator_options.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -28,6 +29,8 @@ class _HomePageState extends State<HomePage> {
       CalculatorOptions(),
       EmiCalculator(),
       LoanCompare(),
+      CalculatorApp(),
+      
     ];
 
     return Scaffold(

@@ -1,15 +1,44 @@
-import 'package:calculator/routes.dart';
-import 'package:calculator/screens/EMI_calculator.dart';
-import 'package:calculator/screens/FD_calculator.dart';
-import 'package:calculator/screens/Loan_Cal.dart';
-import 'package:calculator/screens/RD_calculator.dart';
-import 'package:calculator/screens/SIP_calculator.dart';
-import 'package:calculator/util/calculatorItem.dart';
-import 'package:calculator/util/constants.dart';
+import 'EMI_calculator.dart';
+import 'FD_calculator.dart';
+import 'Loan_Cal.dart';
+import 'RD_calculator.dart';
+import 'SIP_calculator.dart';
+import '../util/calculatorItem.dart';
+import '../util/constants.dart';
 import 'package:flutter/material.dart';
 
-class CalculatorOptions extends StatelessWidget {
+class CalculatorOptions extends StatefulWidget {
   const CalculatorOptions({super.key});
+
+   @override
+  State<CalculatorOptions> createState() => _CalculatorOptionsState();
+}
+
+class _CalculatorOptionsState extends State<CalculatorOptions> {
+  int myIndex = 0;
+  int? selectedWidget;
+
+   void _onTap(int index){
+      setState(() {
+        selectedWidget = index;
+      });
+    }
+
+    Future<bool> _onWillPop() async {
+      if( selectedWidget != null){
+        setState(() {
+          selectedWidget = null;
+        });
+        return false;
+      }
+      return true;
+    }
+
+ 
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +91,12 @@ class CalculatorOptions extends StatelessWidget {
                       ),
                       title: Text('Share this app'),
                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -71,7 +106,13 @@ class CalculatorOptions extends StatelessWidget {
                         color: mainColor,
                       ),
                       title: Text('Rate this app'),
-                      onTap: () {
+                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -81,7 +122,13 @@ class CalculatorOptions extends StatelessWidget {
                         color: mainColor,
                       ),
                       title: Text('Privacy Policy'),
-                      onTap: () {
+                       onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This feature is under development.'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -91,7 +138,16 @@ class CalculatorOptions extends StatelessWidget {
             ],
           ),
         ),
-        body: SingleChildScrollView(
+        body: WillPopScope(child:
+      GestureDetector(
+        onTap: () => _onTap(0),
+        child: selectedWidget == 0 ?
+          EmiCalculator() : selectedWidget == 1 ?
+          LoanCompare() : selectedWidget ==2 ?
+          FD_Calculator() : selectedWidget == 3 ?
+          SIP_Calculator() : selectedWidget ==4 ?
+          RD_Calculator() : 
+          SingleChildScrollView(
             child: Column(
           children: [
             SizedBox(height: 16),
@@ -101,58 +157,44 @@ class CalculatorOptions extends StatelessWidget {
               icon: Icons.calculate,
               title: "EMI Calculator",
               onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const EmiCalculator()),
-                  (route) => false,
-                );
+                _onTap(0);
               },
             ),
             CalculatorItem(
               icon: Icons.money,
               title: "Loan Calculator",
-             onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const LoanCompare()),
-                  (route) => false,
-                );
+              onTap: () {
+                _onTap(1);
               },
             ),
             CalculatorItem(
               icon: Icons.account_balance_wallet,
               title: "FD Calculator",
               onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const FD_Calculator()),
-                  (route) => false,
-                );
+                _onTap(2);
               },
             ),
             CalculatorItem(
               icon: Icons.trending_up,
               title: "SIP Calculator",
-             onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const SIP_Calculator()),
-                  (route) => false,
-                );
+              onTap: () {
+                _onTap(3);
               },
             ),
             CalculatorItem(
               icon: Icons.savings,
               title: "RD Calculator",
               onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => const RD_Calculator()),
-                  (route) => false,
-                );
+               _onTap(4);
               },
             ),
           ],
-        )));
+
+        ))
+
+      ), onWillPop: _onWillPop)
+        
+        );
+
   }
 }
