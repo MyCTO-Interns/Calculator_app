@@ -1,3 +1,4 @@
+import 'package:calculator/controller/indexController.dart';
 import 'package:calculator/routes.dart';
 
 import 'package:calculator/screens/calculator.dart';
@@ -9,9 +10,15 @@ import 'package:calculator/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (context) => IndexController(),
+    child: MyApp(),
+    )
+
+  );
 }
 
 class MyApp extends StatelessWidget {

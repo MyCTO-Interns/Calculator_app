@@ -1,3 +1,7 @@
+import 'package:calculator/controller/indexController.dart';
+import 'package:calculator/screens/HomePage.dart';
+import 'package:provider/provider.dart';
+
 import 'EMI_calculator.dart';
 import 'FD_calculator.dart';
 import 'Loan_Cal.dart';
@@ -8,7 +12,7 @@ import '../util/constants.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorOptions extends StatefulWidget {
-  const CalculatorOptions({super.key});
+  const CalculatorOptions({super.key, });
 
   @override
   State<CalculatorOptions> createState() => _CalculatorOptionsState();
@@ -157,6 +161,8 @@ class _CalculatorOptionsState extends State<CalculatorOptions> {
                                         title: "EMI Calculator",
                                         onTap: () {
                                           _onTap(0);
+                                          Provider.of<IndexController>(context, listen: false).changerIndex(1);
+                                          
                                         },
                                       ),
                                       CalculatorItem(

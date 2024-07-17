@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:provider/provider.dart';
+
+import '../controller/indexController.dart';
 import '../methods/logic.dart';
 import 'package:calculator/methods/methods.dart';
 import 'HomePage.dart';
@@ -99,6 +102,7 @@ class _EmiCalculatorState extends State<EmiCalculator> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
+              Provider.of<IndexController>(context, listen: false).changerIndex(0);
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const HomePage()),
                 (route) => false,

@@ -1,4 +1,7 @@
 
+import 'package:calculator/controller/indexController.dart';
+import 'package:provider/provider.dart';
+
 import '../util/constants.dart';
 import 'EMI_calculator.dart';
 import 'calculator.dart';
@@ -17,34 +20,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int myIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
-
-    final List<Widget> pages = [
+ static int myIndex = 0;
+ final List<Widget> _pages = [
       CalculatorOptions(),
       EmiCalculator(),
       LoanCompare(),
       CalculatorApp(),
       
     ];
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
+
+   
+    final indexController = Provider.of<IndexController>(context);
 
     return Scaffold(
       body: IndexedStack(
-        index: myIndex,
-        children: pages,
+        index: indexController.currentIndex,
+        children: _pages ,
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            myIndex = index;
-          });
-        },
+        onTap: (index) => indexController.changerIndex(index) ,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Calculator',
           ),
         ],
-        currentIndex: myIndex,
+        currentIndex: indexController.currentIndex,
         selectedItemColor: mainColor,
         unselectedItemColor: Colors.black,
         showUnselectedLabels: true,
